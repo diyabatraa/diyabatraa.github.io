@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diya Batra · Analyst &amp; Brand Consultant</title>
+<meta name="description" content="Diya Batra, analyst and brand consultant. Four industries: aerospace manufacturing, global wealth management, capital lending and beauty. University of Waterloo, Class of 2026.">
+<meta name="author" content="Diya Batra">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#252333">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Diya Batra · Analyst &amp; Brand Consultant">
+<meta property="og:description" content="Most people look at data for answers. I look for the questions.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23252333'/%3E%3Ctext x='32' y='43' font-family='Helvetica,Arial,sans-serif' font-size='26' font-weight='700' fill='%23A78BFA' text-anchor='middle'%3EDB%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* base */
+    --plum:#252333;
+    --plum-2:#2E2B3D;
+    --plum-3:#37334A;
+    --plum-line:#3F3A55;
+    --purple:#2B2342;
+    --purple-line:#413561;
+    --white:#FFFFFF;
+
+    /* on dark */
+    --on-dark:#F4F1FA;
+    --on-dark-dim:#ABA3C0;
+    --on-dark-faint:#8A82A0;
+
+    /* pops */
+    --violet:#A78BFA;
+    --violet-ink:#6D28D9;
+    --coral:#FF7A5C;
+    --coral-ink:#B8442E;
+    --gold:#F2B950;
+    --mint:#7EE7B0;
+    --peach:#FFA07A;
+    --grad:linear-gradient(135deg,#7C5CFF 0%,#B45CFF 55%,#E05CFF 100%);
+    --grad-soft:linear-gradient(135deg,rgba(124,92,255,0.14),rgba(224,92,255,0.10));
+
+    /* on light */
+    --ink:#1A1826;
+    --body:#56516B;
+    --muted:#746E88;
+    --rule:#ECEAF2;
+    --surface:rgba(37,35,51,0.035);
+    --surface-line:rgba(37,35,51,0.09);
+    --surface-hover:rgba(37,35,51,0.055);
+    --violet-wash:rgba(109,40,217,0.09);
+
+    --display:'Sora',system-ui,sans-serif;
+    --sans:'Inter',system-ui,sans-serif;
+    --mono:'JetBrains Mono',ui-monospace,monospace;
+    --r:18px;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--white);color:var(--body);
+    font-family:var(--sans);font-size:16px;line-height:1.6;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none;}
+  ::selection{background:var(--violet);color:var(--plum);}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 30px;}
+
+  /* ================= NAV ================= */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:60;
+    background:rgba(37,35,51,0.72);
+    backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    border-bottom:1px solid rgba(255,255,255,0.07);
+    transition:background .3s ease,border-color .3s ease;
+  }
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:72px;gap:24px;}
+  .brand{
+    font-family:var(--display);font-size:19px;font-weight:700;
+    color:var(--on-dark);letter-spacing:-0.02em;white-space:nowrap;
+    transition:color .3s ease;
+  }
+  .brand span{
+    background:var(--grad);-webkit-background-clip:text;background-clip:text;
+    -webkit-text-fill-color:transparent;
+  }
+  .nav-links{display:flex;gap:34px;font-size:14.5px;font-weight:500;}
+  .nav-links a{color:var(--on-dark-dim);transition:color .2s ease;}
+  .nav-links a:hover{color:var(--on-dark);}
+  .nav-cta{
+    font-size:14px;font-weight:600;color:#fff;white-space:nowrap;
+    background:var(--grad);border-radius:100px;padding:11px 22px;
+    box-shadow:0 6px 20px rgba(124,92,255,0.34);
+    transition:transform .2s ease,box-shadow .2s ease;
+  }
+  .nav-cta:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(124,92,255,0.45);}
+  nav.light{background:rgba(255,255,255,0.9);border-bottom-color:var(--rule);}
+  nav.light .brand{color:var(--ink);}
+  nav.light .nav-links a{color:var(--muted);}
+  nav.light .nav-links a:hover{color:var(--ink);}
+  @media (max-width:940px){ .nav-links{display:none;} }
+
+  /* ================= HERO ================= */
+  header{background:var(--plum);position:relative;overflow:hidden;padding:150px 0 0;}
+  header::before{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background:
+      radial-gradient(760px 420px at 82% 2%, rgba(176,92,255,0.20), transparent 66%),
+      radial-gradient(540px 340px at 2% 96%, rgba(255,122,92,0.10), transparent 70%);
+  }
+  header .wrap{position:relative;}
+  .hero-grid{display:grid;grid-template-columns:1.06fr 0.94fr;gap:56px;align-items:center;padding-bottom:84px;}
+  .tag-pill{
+    display:inline-flex;align-items:center;gap:10px;
+    font-family:var(--mono);font-size:11px;letter-spacing:0.16em;text-transform:uppercase;
+    color:var(--on-dark);background:rgba(255,255,255,0.06);
+    border:1px solid var(--plum-line);border-radius:100px;padding:9px 18px;margin-bottom:30px;
+  }
+  .tag-pill .dot{
+    width:7px;height:7px;border-radius:50%;background:var(--mint);
+    box-shadow:0 0 0 4px rgba(126,231,176,0.16);flex:none;
+  }
+  h1{
+    font-family:var(--display);
+    font-size:clamp(38px,5.2vw,62px);
+    font-weight:800;line-height:1.02;letter-spacing:-0.045em;
+    color:var(--white);margin-bottom:26px;
+  }
+  h1 .quiet{color:var(--on-dark-dim);font-weight:700;}
+  h1 .pop{
+    background:var(--grad);-webkit-background-clip:text;background-clip:text;
+    -webkit-text-fill-color:transparent;
+  }
+  .hero-sub{font-size:16.5px;line-height:1.8;color:var(--on-dark-dim);max-width:52ch;margin-bottom:34px;}
+  .hero-sub strong{color:var(--on-dark);font-weight:600;}
+  .hero-actions{display:flex;gap:12px;flex-wrap:wrap;align-items:center;}
+  .btn{
+    font-family:var(--sans);font-size:14.5px;font-weight:600;
+    padding:14px 26px;border-radius:100px;display:inline-flex;align-items:center;gap:9px;
+    background:var(--grad);color:#fff;border:0;
+    box-shadow:0 8px 24px rgba(124,92,255,0.32);
+    transition:transform .22s ease,box-shadow .22s ease;
+  }
+  .btn:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(124,92,255,0.44);}
+  .btn .arw{transition:transform .25s cubic-bezier(.22,.7,.3,1);}
+  .btn:hover .arw{transform:translateX(4px);}
+  .btn.ghost{
+    background:transparent;color:var(--on-dark);
+    border:1px solid var(--plum-line);box-shadow:none;
+  }
+  .btn.ghost:hover{border-color:var(--violet);color:#fff;box-shadow:none;}
+  .btn.ink{background:var(--ink);box-shadow:0 8px 22px rgba(26,24,38,0.22);}
+  .btn.outline{background:transparent;color:var(--ink);border:1px solid var(--surface-line);box-shadow:none;}
+  .btn.outline:hover{border-color:var(--violet-ink);color:var(--violet-ink);box-shadow:none;}
+
+  /* the fun bit: a JSON card */
+  .json-card{
+    background:var(--plum-2);border:1px solid var(--plum-line);
+    border-radius:20px;padding:0;overflow:hidden;
+    box-shadow:0 30px 60px rgba(0,0,0,0.30);
+  }
+  .json-bar{
+    display:flex;align-items:center;gap:8px;padding:14px 18px;
+    border-bottom:1px solid var(--plum-line);background:rgba(255,255,255,0.02);
+  }
+  .json-bar i{width:11px;height:11px;border-radius:50%;display:block;}
+  .json-bar .f{font-family:var(--mono);font-size:11px;color:var(--on-dark-faint);margin-left:8px;}
+  .json-body{
+    font-family:var(--mono);font-size:13px;line-height:2;
+    padding:22px 24px 26px;color:var(--on-dark-dim);overflow-x:auto;
+  }
+  .json-body .k{color:var(--mint);}
+  .json-body .s{color:var(--peach);}
+  .json-body .p{color:var(--on-dark-faint);}
+  .json-body .ind{padding-left:22px;display:block;}
+  @media (max-width:940px){
+    header{padding-top:118px;}
+    .hero-grid{grid-template-columns:1fr;gap:40px;padding-bottom:56px;}
+    .hero-sub{max-width:58ch;}
+  }
+
+  /* ================= STAT STRIP ================= */
+  .stat-band{background:var(--plum);border-top:1px solid var(--plum-line);}
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;}
+  .stat{padding:34px 26px;border-left:1px solid var(--plum-line);}
+  .stat:first-child{border-left:0;padding-left:0;}
+  .stat .v{
+    font-family:var(--display);font-size:clamp(30px,3.4vw,42px);
+    font-weight:800;line-height:1;letter-spacing:-0.04em;
+    background:var(--grad);-webkit-background-clip:text;background-clip:text;
+    -webkit-text-fill-color:transparent;
+    font-variant-numeric:tabular-nums;
+  }
+  .stat .l{
+    font-family:var(--mono);font-size:10.5px;letter-spacing:0.12em;text-transform:uppercase;
+    color:var(--on-dark-faint);margin-top:14px;line-height:1.6;
+  }
+  @media (max-width:820px){
+    .stats{grid-template-columns:repeat(2,1fr);}
+    .stat{padding:26px 20px;border-left:0;}
+    .stat:first-child{padding-left:20px;}
+    .stat:nth-child(n+3){border-top:1px solid var(--plum-line);}
+  }
+
+  /* ================= SECTION FRAME ================= */
+  section{padding:108px 0;}
+  /* the nav is fixed, so anchor jumps must clear it */
+  section[id]{scroll-margin-top:88px;}
+  .dark{background:var(--plum);color:var(--on-dark-dim);}
+  .sec-top{margin-bottom:22px;}
+  .eyebrow{
+    font-family:var(--mono);font-size:11px;letter-spacing:0.18em;
+    text-transform:uppercase;color:var(--violet-ink);margin-bottom:10px;display:block;
+  }
+  .dark .eyebrow{color:var(--violet);}
+  .sec-title{display:flex;align-items:center;gap:28px;}
+  h2{
+    font-family:var(--display);font-size:clamp(32px,4.4vw,52px);
+    font-weight:800;letter-spacing:-0.045em;line-height:1.02;color:var(--ink);white-space:nowrap;
+  }
+  .dark h2{color:var(--white);}
+  .sec-line{flex:1;height:3px;border-radius:3px;background:var(--grad);min-width:40px;}
+  .sec-lede{color:var(--muted);font-size:16.5px;line-height:1.75;max-width:62ch;margin-top:20px;}
+  .dark .sec-lede{color:var(--on-dark-dim);}
+  @media (max-width:640px){ h2{white-space:normal;} .sec-title{gap:16px;} }
+
+  /* ================= ABOUT ================= */
+  .about{display:grid;grid-template-columns:1.3fr 1fr;gap:60px;align-items:start;margin-top:50px;}
+  .about p{font-size:17px;line-height:1.85;margin-bottom:22px;}
+  .about p:last-child{margin-bottom:0;}
+  .about strong{
+    color:var(--violet-ink);font-weight:600;
+  }
+  .about .closing{
+    font-family:var(--display);font-size:19px;font-weight:600;line-height:1.5;
+    letter-spacing:-0.025em;color:var(--ink);
+    margin-top:30px;padding-left:22px;border-left:3px solid transparent;
+    border-image:var(--grad) 1;
+  }
+  .about .closing .pop{
+    background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  }
+  .facts{background:var(--surface);border:1px solid var(--surface-line);border-radius:var(--r);padding:8px 26px;}
+  .fact{padding:19px 0;border-bottom:1px solid var(--surface-line);}
+  .fact:last-child{border-bottom:0;}
+  .fact .k{font-family:var(--mono);font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+  .fact .v{font-size:15px;color:var(--ink);line-height:1.55;font-weight:500;}
+  @media (max-width:900px){ .about{grid-template-columns:1fr;gap:40px;} }
+
+  /* ================= EXPERIENCE (purple section, grey cards) ================= */
+  .purple{background:var(--purple);}
+  .purple .sec-line{background:var(--grad);}
+  .purple .role{
+    /* the card is light, so it must set its own text colour instead of
+       inheriting the dark section's pale lavender */
+    color:#3B3650;
+    background:#F2F1F7;
+    border-color:rgba(255,255,255,0.10);
+    box-shadow:0 14px 34px rgba(0,0,0,0.16);
+  }
+  .purple .role:hover{
+    background:#FFFFFF;
+    border-color:rgba(167,139,250,0.55);
+  }
+  .roles{display:flex;flex-direction:column;gap:16px;margin-top:50px;}
+  .role{
+    display:grid;grid-template-columns:200px 1fr;gap:40px;
+    background:var(--surface);border:1px solid var(--surface-line);border-radius:var(--r);
+    padding:32px 34px;
+    transition:background .26s ease,border-color .26s ease,transform .26s ease;
+  }
+  .role:hover{background:var(--surface-hover);border-color:rgba(109,40,217,0.22);transform:translateY(-2px);}
+  .role-when{font-family:var(--mono);font-size:12px;color:var(--muted);line-height:1.8;padding-top:5px;}
+  .role-when .org{
+    display:inline-block;margin-top:10px;
+    font-family:var(--display);font-size:15px;font-weight:700;letter-spacing:-0.02em;
+    color:var(--violet-ink);background:var(--violet-wash);
+    padding:5px 13px;border-radius:100px;
+  }
+  .role h3{font-family:var(--display);font-size:23px;font-weight:700;color:var(--ink);letter-spacing:-0.03em;margin-bottom:6px;}
+  .role .where{font-size:13.5px;color:var(--muted);margin-bottom:18px;}
+  .role .lead{font-size:15.5px;line-height:1.75;color:var(--ink);font-weight:500;margin-bottom:18px;}
+  .role ul{list-style:none;}
+  .role li{position:relative;padding-left:22px;font-size:15.5px;line-height:1.75;margin-bottom:10px;color:#3B3650;}
+  .role li:last-child{margin-bottom:0;}
+  .role li::before{
+    content:"";position:absolute;left:0;top:10px;width:7px;height:7px;border-radius:50%;
+    background:var(--ink);
+  }
+  .role li b{
+    font-family:var(--mono);font-size:13px;font-weight:500;
+    color:var(--violet-ink);background:var(--violet-wash);padding:2px 8px;border-radius:6px;white-space:nowrap;
+  }
+  @media (max-width:800px){
+    .role{grid-template-columns:1fr;gap:14px;padding:26px 22px;}
+    .role-when{padding-top:0;}
+  }
+
+  /* ================= TOOLKIT ================= */
+  .tool-group{margin-bottom:30px;}
+  .tool-group:last-of-type{margin-bottom:0;}
+  .group-head{
+    font-family:var(--display);font-size:17px;font-weight:700;letter-spacing:-0.025em;color:var(--ink);
+    display:flex;align-items:center;gap:10px;margin-bottom:14px;
+  }
+  .group-head::before{content:"";width:10px;height:10px;border-radius:3px;background:var(--grad);flex:none;}
+  .tool-group:nth-of-type(2) .group-head::before{background:var(--coral-ink);}
+  .tool-group:nth-of-type(3) .group-head::before{background:#C9962B;}
+  .tool-group:nth-of-type(4) .group-head::before{background:var(--violet-ink);}
+  .tool-group:nth-of-type(5) .group-head::before{background:#2E9E78;}
+  .tool-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(172px,1fr));gap:10px;}
+  .t-card{
+    background:var(--surface);border:1px solid var(--surface-line);border-radius:12px;
+    padding:12px;display:flex;align-items:center;gap:11px;min-width:0;
+    transition:background .24s ease,border-color .24s ease,transform .24s ease;
+  }
+  .t-card:hover{background:var(--surface-hover);border-color:rgba(109,40,217,0.25);transform:translateY(-2px);}
+  /* Icons come from cdn.simpleicons.org, which serves each mark in its own official brand
+     colour. Every <img> falls back to the monogram if it fails to load. To go offline, drop
+     the SVGs into assets/logos/ and change the src paths; the 30px box stays the same. */
+  .t-card .mark{
+    width:30px;height:30px;border-radius:9px;flex:none;
+    display:flex;align-items:center;justify-content:center;
+    background:var(--violet-wash);color:var(--violet-ink);
+    font-family:var(--mono);font-size:10.5px;font-weight:500;
+  }
+  /* monogram shows by default; the brand icon replaces it only once it has loaded,
+     so a blocked CDN, an offline visitor or a dead slug still gets a filled tile */
+  /* the icon is layered over the monogram at opacity 0 and fades in once loaded;
+     never display:none, or a lazy image is never requested in the first place */
+  .t-card .mark{position:relative;}
+  .t-card .mark .ico{
+    position:absolute;width:18px;height:18px;opacity:0;
+    transition:opacity .25s ease;
+  }
+  .t-card .mark.hasicon .ico{opacity:1;}          /* brand colours, untinted */
+  .t-card .mark.hasicon .mono{opacity:0;}
+  .t-card .mark.hasicon{background:#FFFFFF;border:1px solid var(--surface-line);}
+  .t-card .mark .mono{transition:opacity .2s ease;}
+  .t-card .nm{font-size:13px;font-weight:600;color:var(--ink);line-height:1.25;}
+  .t-card .sub{font-size:10.5px;color:var(--muted);margin-top:3px;line-height:1.35;}
+  .methods{margin-top:10px;padding-top:32px;border-top:1px solid var(--surface-line);}
+  .methods .lbl{font-family:var(--mono);font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:15px;}
+  .chips{display:flex;flex-wrap:wrap;gap:9px;}
+  .chip-static{
+    font-size:13.5px;font-weight:500;color:var(--body);
+    border:1px solid var(--surface-line);background:var(--surface);border-radius:100px;padding:8px 17px;
+  }
+
+  /* ================= PROJECTS ================= */
+  .projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:18px;margin-top:50px;}
+  .proj{
+    background:var(--plum-2);border:1px solid var(--plum-line);border-radius:var(--r);
+    padding:30px 28px 26px;display:flex;flex-direction:column;position:relative;overflow:hidden;
+    transition:border-color .28s ease,transform .28s ease;
+  }
+  .proj::before{
+    content:"";position:absolute;inset:0 0 auto 0;height:3px;background:var(--grad);
+    transform:scaleX(0);transform-origin:left;transition:transform .35s ease;
+  }
+  .proj:hover{border-color:rgba(167,139,250,0.4);transform:translateY(-4px);}
+  .proj:hover::before{transform:scaleX(1);}
+  .proj .tag{
+    display:inline-flex;align-self:flex-start;
+    font-family:var(--mono);font-size:10px;letter-spacing:0.12em;text-transform:uppercase;
+    color:var(--violet);background:rgba(167,139,250,0.12);
+    border-radius:100px;padding:7px 14px;margin-bottom:20px;
+  }
+  .proj h3{font-family:var(--display);font-size:23px;font-weight:700;color:#fff;line-height:1.16;letter-spacing:-0.035em;margin-bottom:14px;}
+  .proj p{font-size:15px;line-height:1.8;color:var(--on-dark-dim);margin-bottom:26px;}
+  .proj .metrics{display:flex;gap:28px;flex-wrap:wrap;margin-bottom:26px;}
+  .proj .m-v{font-family:var(--display);font-size:27px;font-weight:800;color:var(--gold);line-height:1;letter-spacing:-0.035em;}
+  .proj .m-l{font-family:var(--mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--on-dark-faint);margin-top:9px;}
+  .proj .stack{
+    font-family:var(--mono);font-size:11px;color:var(--on-dark-faint);
+    padding-top:20px;border-top:1px solid var(--plum-line);margin-top:auto;
+    display:flex;justify-content:space-between;align-items:center;gap:14px;
+  }
+  .proj .open{color:var(--violet);display:inline-flex;gap:7px;align-items:center;white-space:nowrap;}
+  .proj .open .arw{transition:transform .26s cubic-bezier(.22,.7,.3,1);}
+  .proj:hover .open .arw{transform:translateX(5px);}
+  @media (max-width:740px){ .projects{grid-template-columns:1fr;} }
+
+  /* ================= CONTACT ================= */
+  .contact-statement{
+    font-family:var(--display);font-size:clamp(26px,3.4vw,42px);
+    font-weight:700;line-height:1.24;color:var(--ink);letter-spacing:-0.04em;
+    max-width:20ch;margin:44px 0 34px;
+  }
+  .contact-statement .pop{
+    background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  }
+  .contact-links{display:flex;gap:12px;flex-wrap:wrap;}
+
+  footer{border-top:1px solid var(--rule);padding:34px 0;}
+  footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-family:var(--mono);font-size:11px;color:var(--muted);}
+
+  /* ================= MOTION ================= */
+  .js-anim .reveal{opacity:0;transform:translateY(20px);transition:opacity .66s ease,transform .66s ease;}
+  .js-anim .reveal.in{opacity:1;transform:none;}
+  @media print{ .reveal{opacity:1 !important;transform:none !important;} }
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto;}
+    .reveal{opacity:1;transform:none;transition:none;}
+    .card:hover,.proj:hover,.role:hover,.t-card:hover,.btn:hover,.nav-cta:hover{transform:none;}
+  }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="wrap">
+    <a class="brand" href="#top">Diya <span>Batra</span></a>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#toolkit">Toolkit</a>
+      <a href="#projects">Work</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <a class="nav-cta" href="mailto:d5batra@uwaterloo.ca">Get in touch</a>
+  </div>
+</nav>
+
+<header id="top">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <span class="tag-pill"><span class="dot"></span>University of Waterloo, Class of 2026</span>
+        <h1>
+          <span class="quiet">Most people look at data for answers.</span><br>
+          I look for <span class="pop">the questions</span>.
+        </h1>
+        <p class="hero-sub">
+          I'm Diya Batra. I've worked across aerospace manufacturing, global wealth management,
+          capital lending and brand consultancy: <strong>four rooms that rarely expect the same
+          person</strong>. What I bring into each is a curiosity that doesn't stop at the first answer.
+        </p>
+        <div class="hero-actions">
+          <a class="btn" href="#projects">See the work <span class="arw">→</span></a>
+          <a class="btn ghost" href="https://www.linkedin.com/in/diya-batra" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+      </div>
+
+      <div class="json-card">
+        <div class="json-bar">
+          <i style="background:#FF6058"></i><i style="background:#FFBD2E"></i><i style="background:#28C840"></i>
+          <span class="f">diya.json</span>
+        </div>
+        <div class="json-body">
+<span class="p">{</span>
+<span class="ind"><span class="k">"role"</span><span class="p">:</span> <span class="s">"analyst / brand consultant"</span><span class="p">,</span></span>
+<span class="ind"><span class="k">"degree"</span><span class="p">:</span> <span class="s">"maths + business admin"</span><span class="p">,</span></span>
+<span class="ind"><span class="k">"industries"</span><span class="p">:</span> <span class="p">[</span></span>
+<span class="ind" style="padding-left:44px"><span class="s">"aerospace"</span><span class="p">,</span> <span class="s">"wealth"</span><span class="p">,</span> <span class="s">"lending"</span><span class="p">,</span> <span class="s">"beauty"</span></span>
+<span class="ind"><span class="p">],</span></span>
+<span class="ind"><span class="k">"stack"</span><span class="p">:</span> <span class="p">[</span><span class="s">"python"</span><span class="p">,</span> <span class="s">"sql"</span><span class="p">,</span> <span class="s">"power bi"</span><span class="p">],</span></span>
+<span class="ind"><span class="k">"currently"</span><span class="p">:</span> <span class="s">"asking better questions"</span></span>
+<span class="p">}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="stat-band">
+  <div class="wrap">
+    <div class="stats" id="statBand">
+      <div class="stat"><div class="v" data-count="5">5</div><div class="l">Roles across four industries</div></div>
+      <div class="stat"><div class="v" data-count="50000" data-group="true" data-suffix="+">50,000+</div><div class="l">Records through ETL pipelines</div></div>
+      <div class="stat"><div class="v" data-count="8" data-suffix="+">8+</div><div class="l">Cost centres monitored in SAP</div></div>
+      <div class="stat"><div class="v" data-count="9" data-prefix="~" data-suffix="%">~9%</div><div class="l">Operational efficiency gain</div></div>
+    </div>
+  </div>
+</div>
+
+<span id="heroEnd" aria-hidden="true"></span>
+
+<section id="about">
+  <div class="wrap">
+    <div class="sec-top">
+      <span class="eyebrow">Background</span>
+      <div class="sec-title"><h2>About Me</h2><span class="sec-line"></span></div>
+    </div>
+    <div class="about reveal">
+      <div>
+        <p>
+          I work at the intersection of <strong>data, business and brand</strong>, with experience
+          across aerospace manufacturing, global wealth management, capital lending and beauty
+          communications. Each taught me to approach problems differently, but the instinct stays
+          the same: look beyond the obvious, question what the data is saying, and understand what
+          it means for the decision at hand.
+        </p>
+        <p>
+          Mathematics and Business Administration at the University of Waterloo gave me the
+          analytical foundation. Across <strong>Bombardier</strong>, <strong>Manulife</strong> and
+          <strong>Viva Capital</strong>, I built dashboards, automated reporting and turned complex
+          datasets into something teams could actually use.
+        </p>
+        <p>
+          At <strong>Stanley Communications</strong> I bring that same curiosity to beauty, working
+          across Huda Beauty, Kylie Cosmetics, Typsy Beauty and Forever 52 on creator strategy,
+          competitive research, campaign planning, product launches and brand communications.
+        </p>
+        <p class="closing">
+          Different industries, different problems, but the same approach: understand the evidence,
+          find the opportunity, and <span class="pop">make the answer useful</span>.
+        </p>
+      </div>
+      <div class="facts">
+        <div class="fact"><div class="k">University</div><div class="v">University of Waterloo, Class of 2026</div></div>
+        <div class="fact"><div class="k">Degree</div><div class="v">Honours Mathematics &amp; Business Administration (Co-op)</div></div>
+        <div class="fact"><div class="k">Working at the intersection of</div><div class="v">Data · Business · Brand</div></div>
+        <div class="fact"><div class="k">Current scope</div><div class="v">Creator strategy · Competitive research · Campaign planning · Product launches · Brand communications</div></div>
+        <div class="fact"><div class="k">Industries</div><div class="v">Beauty communications · Aerospace manufacturing · Global wealth management · Capital lending</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section id="experience" class="dark purple">
+  <div class="wrap">
+    <div class="sec-top">
+      <span class="eyebrow">Journey</span>
+      <div class="sec-title"><h2>Experience</h2><span class="sec-line"></span></div>
+      <p class="sec-lede">Five roles since 2022: four analyst co-op terms and my current brand work, in reverse order.</p>
+    </div>
+    <div class="roles reveal">
+      <article class="role">
+        <div class="role-when">August 2026 – Present<span class="org">Stanley Communications</span></div>
+        <div>
+          <h3>Brand Consultant · Beauty</h3>
+          <div class="where">Delhi, India · Beauty communications</div>
+          <p class="lead">
+            Working across Huda Beauty, Kylie Cosmetics, Typsy Beauty and Forever 52, supporting
+            brand and creator-led campaigns from strategy through execution.
+          </p>
+          <ul>
+            <li>Run competitive and category research to find the positioning and content gaps a brand can credibly own.</li>
+            <li>Build creator strategies and influencer shortlists, weighing audience, content, brand fit and commercials.</li>
+            <li>Support product launches, seeding and campaign activations, coordinating creators, briefs and timelines.</li>
+            <li>Track outreach, content and deliverables across several concurrent campaigns, keeping each launch on schedule.</li>
+          </ul>
+        </div>
+      </article>
+      <article class="role">
+        <div class="role-when">Sept 2024 – Apr 2025<span class="org">Bombardier</span></div>
+        <div>
+          <h3>Operations Analyst</h3>
+          <div class="where">Mississauga, ON · Aerospace manufacturing</div>
+          <ul>
+            <li>Built automated reporting tools in <b>VBA</b> to consolidate workforce data, cutting manual processing time and holding data consistent across reports.</li>
+            <li>Analysed attendance, absenteeism and early departures in <b>SQL</b> to improve labour planning accuracy and HR performance tracking.</li>
+            <li>Examined labour hours and headcount distribution to optimise station-level resource allocation.</li>
+            <li>Cleaned and validated workforce records monthly in Excel and SQL, keeping daily operational and financial reporting accurate.</li>
+          </ul>
+        </div>
+      </article>
+      <article class="role">
+        <div class="role-when">Sept 2023 – Apr 2024<span class="org">Bombardier</span></div>
+        <div>
+          <h3>Financial Analyst</h3>
+          <div class="where">Mississauga, ON · Aerospace manufacturing</div>
+          <ul>
+            <li>Analysed financial and operational data across production programmes, improving cost tracking and budget visibility.</li>
+            <li>Monitored overhead and cost drivers across <b>8+ cost centres</b> in SAP, reducing reporting discrepancies.</li>
+            <li>Supported budgeting, forecasting and variance analysis through EPM tools across monthly and quarterly planning cycles.</li>
+            <li>Developed <b>Power BI</b> dashboards tracking financial and operational KPIs, so the team could spot trends and variances without a hand-off.</li>
+          </ul>
+        </div>
+      </article>
+      <article class="role">
+        <div class="role-when">Oct 2022 – Dec 2022<span class="org">Viva Capital</span></div>
+        <div>
+          <h3>Financial Analyst</h3>
+          <div class="where">Oakville, ON · Capital lending</div>
+          <ul>
+            <li>Applied segmentation analysis to client revenue and CRM data, surfacing underperforming segments and revenue concentration risk.</li>
+            <li>Ran multi-period trend analysis on client performance metrics to flag deviations and emerging revenue gaps.</li>
+            <li>Worked with vendors and internal teams to resolve transactional and data discrepancies, improving CRM data integrity and internal controls.</li>
+          </ul>
+        </div>
+      </article>
+      <article class="role">
+        <div class="role-when">Jan 2022 – Apr 2022<span class="org">Manulife</span></div>
+        <div>
+          <h3>Strategy Analyst · Global Wealth &amp; Asset Management</h3>
+          <div class="where">Toronto, ON · Wealth &amp; asset management</div>
+          <ul>
+            <li>Built and maintained ETL pipelines in <b>Python and SQL</b>, integrating operational datasets and processing <b>50,000+ records</b> for strategic analysis.</li>
+            <li>Developed Tableau and Power BI dashboards tracking financial, operational and customer-lifecycle KPIs, improving performance visibility across teams.</li>
+            <li>Created financial trackers in SharePoint, reducing manual handling and improving reporting accuracy.</li>
+            <li>Ran predictive analysis on customer service data to identify call-volume drivers, improving operational efficiency by <b>~9%</b>.</li>
+          </ul>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="toolkit">
+  <div class="wrap">
+    <div class="sec-top">
+      <span class="eyebrow">Stack</span>
+      <div class="sec-title"><h2>Toolkit</h2><span class="sec-line"></span></div>
+      <p class="sec-lede">Grouped by what I actually use it for.</p>
+    </div>
+    <div class="reveal" style="margin-top:44px;">
+
+      <div class="tool-group">
+        <h3 class="group-head">Data &amp; engineering</h3>
+        <div class="tool-grid">
+          <div class="t-card"><div class="mark"><img class="ico" src="https://cdn.simpleicons.org/python" alt="" loading="lazy" decoding="async" onload="this.parentNode.classList.add('hasicon')" onerror="this.remove()"><span class="mono">Py</span></div><div class="txt"><div class="nm">Python</div><div class="sub">ETL &amp; modelling</div></div></div>
+          <div class="t-card"><div class="mark"><span class="mono">SQL</span></div><div class="txt"><div class="nm">SQL</div><div class="sub">T-SQL, SSRS, SSAS</div></div></div>
+          <div class="t-card"><div class="mark"><img class="ico" src="https://cdn.simpleicons.org/r" alt="" loading="lazy" decoding="async" onload="this.parentNode.classList.add('hasicon')" onerror="this.remove()"><span class="mono">R</span></div><div class="txt"><div class="nm">R</div><div class="sub">Statistical analysis</div></div></div>
+          <div class="t-card"><div class="mark"><img class="ico" src="https://cdn.simpleicons.org/c" alt="" loading="lazy" decoding="async" onload="this.parentNode.classList.add('hasicon')" onerror="this.remove()"><span class="mono">C</span></div><div class="txt"><div class="nm">C</div><div class="sub">Fundamentals</div></div></div>
+          <div class="t-card"><div class="mark"><img class="ico" src="https://cdn.simpleicons.org/amazonwebservices" alt="" loading="lazy" decoding="async" onload="this.parentNode.classList.add('hasicon')" onerror="this.remove()"><span class="mono">AWS</span></div><div class="txt"><div class="nm">AWS</div><div class="sub">Cloud data</div></div></div>
+        </div>
+      </div>
+
+      <div class="tool-group">
+        <h3 class="group-head">BI &amp; reporting</h3>
+        <div class="tool-grid">
+          <div class="t-card"><div class="mark"><img class="ico" src="https://cdn.simpleicons.org/powerbi" alt="" loading="lazy" decoding="async" onload="this.parentNode.classList.add('hasicon')" onerror="this.remove()"><span class="mono">PBI</span></div><div class="txt"><div class="nm">Power BI</div><div class="sub">DAX &amp; modelling</div></div></div>
+          <div class="t-card"><div class="mark"><img class="ico" src="https://cdn.simpleicons.org/tableau" alt="" loading="lazy" decoding="async" onload="this.parentNode.classList.add('hasicon')" onerror="this.remove()"><span class="mono">Tb</span></div><div class="txt"><div class="nm">Tableau</div><div class="sub">Dashboards</div></div></div>
+          <div class="t-card"><div class="mark"><img class="ico" src="https://cdn.simpleicons.org/microsoftexcel" alt="" loading="lazy" decoding="async" onload="this.parentNode.classList.add('hasicon')" onerror="this.remove()"><span class="mono">Xl</span></div><div class="txt"><div class="nm">Advanced Excel</div><div class="sub">VBA &amp; macros</div></div></div>
+          <div class="t-card"><div class="mark"><img class="ico" src="https://cdn.simpleicons.org/sap" alt="" loading="lazy" decoding="async" onload="this.parentNode.classList.add('hasicon')" onerror="this.remove()"><span class="mono">SAP</span></div><div class="txt"><div class="nm">SAP</div><div class="sub">Cost centres</div></div></div>
+          <div class="t-card"><div class="mark"><img class="ico" src="https://cdn.simpleicons.org/microsoftsharepoint" alt="" loading="lazy" decoding="async" onload="this.parentNode.classList.add('hasicon')" onerror="this.remove()"><span class="mono">SPt</span></div><div class="txt"><div class="nm">SharePoint</div><div class="sub">Trackers &amp; flows</div></div></div>
+        </div>
+      </div>
+
+      <div class="tool-group">
+        <h3 class="group-head">Marketing &amp; CRM</h3>
+        <div class="tool-grid">
+          <div class="t-card"><div class="mark"><img class="ico" src="https://cdn.simpleicons.org/hubspot" alt="" loading="lazy" decoding="async" onload="this.parentNode.classList.add('hasicon')" onerror="this.remove()"><span class="mono">Hs</span></div><div class="txt"><div class="nm">HubSpot</div><div class="sub">Campaigns</div></div></div>
+          <div class="t-card"><div class="mark"><img class="ico" src="https://cdn.simpleicons.org/salesforce" alt="" loading="lazy" decoding="async" onload="this.parentNode.classList.add('hasicon')" onerror="this.remove()"><span class="mono">Sf</span></div><div class="txt"><div class="nm">Salesforce</div><div class="sub">CRM data</div></div></div>
+          <div class="t-card"><div class="mark"><img class="ico" src="https://cdn.simpleicons.org/googleanalytics" alt="" loading="lazy" decoding="async" onload="this.parentNode.classList.add('hasicon')" onerror="this.remove()"><span class="mono">GA</span></div><div class="txt"><div class="nm">Google Analytics</div><div class="sub">Traffic data</div></div></div>
+        </div>
+      </div>
+
+      <div class="tool-group">
+        <h3 class="group-head">Design &amp; content</h3>
+        <div class="tool-grid">
+          <div class="t-card"><div class="mark"><img class="ico" src="https://cdn.simpleicons.org/figma" alt="" loading="lazy" decoding="async" onload="this.parentNode.classList.add('hasicon')" onerror="this.remove()"><span class="mono">Fg</span></div><div class="txt"><div class="nm">Figma</div><div class="sub">Layouts &amp; decks</div></div></div>
+          <div class="t-card"><div class="mark"><img class="ico" src="https://cdn.simpleicons.org/adobeillustrator" alt="" loading="lazy" decoding="async" onload="this.parentNode.classList.add('hasicon')" onerror="this.remove()"><span class="mono">Il</span></div><div class="txt"><div class="nm">Illustrator</div><div class="sub">Vector work</div></div></div>
+          <div class="t-card"><div class="mark"><img class="ico" src="https://cdn.simpleicons.org/adobephotoshop" alt="" loading="lazy" decoding="async" onload="this.parentNode.classList.add('hasicon')" onerror="this.remove()"><span class="mono">Ph</span></div><div class="txt"><div class="nm">Photoshop</div><div class="sub">Asset editing</div></div></div>
+          <div class="t-card"><div class="mark"><img class="ico" src="https://cdn.simpleicons.org/canva" alt="" loading="lazy" decoding="async" onload="this.parentNode.classList.add('hasicon')" onerror="this.remove()"><span class="mono">Cv</span></div><div class="txt"><div class="nm">Canva</div><div class="sub">Reporting visuals</div></div></div>
+          <div class="t-card"><div class="mark"><img class="ico" src="https://cdn.simpleicons.org/capcut" alt="" loading="lazy" decoding="async" onload="this.parentNode.classList.add('hasicon')" onerror="this.remove()"><span class="mono">Cc</span></div><div class="txt"><div class="nm">CapCut</div><div class="sub">Short-form video</div></div></div>
+        </div>
+      </div>
+
+      <div class="tool-group">
+        <h3 class="group-head">AI &amp; workspace</h3>
+        <div class="tool-grid">
+          <div class="t-card"><div class="mark"><img class="ico" src="https://cdn.simpleicons.org/claude" alt="" loading="lazy" decoding="async" onload="this.parentNode.classList.add('hasicon')" onerror="this.remove()"><span class="mono">Cd</span></div><div class="txt"><div class="nm">Claude</div><div class="sub">Research &amp; drafting</div></div></div>
+          <div class="t-card"><div class="mark"><span class="mono">Lv</span></div><div class="txt"><div class="nm">Lovable</div><div class="sub">Prototyping</div></div></div>
+          <div class="t-card"><div class="mark"><img class="ico" src="https://cdn.simpleicons.org/notion" alt="" loading="lazy" decoding="async" onload="this.parentNode.classList.add('hasicon')" onerror="this.remove()"><span class="mono">Nt</span></div><div class="txt"><div class="nm">Notion</div><div class="sub">Docs &amp; planning</div></div></div>
+          <div class="t-card"><div class="mark"><img class="ico" src="https://cdn.simpleicons.org/slack" alt="" loading="lazy" decoding="async" onload="this.parentNode.classList.add('hasicon')" onerror="this.remove()"><span class="mono">Sk</span></div><div class="txt"><div class="nm">Slack</div><div class="sub">Team comms</div></div></div>
+        </div>
+      </div>
+
+      <div class="methods">
+        <div class="lbl">What I do with them</div>
+        <div class="chips">
+          <span class="chip-static">Brand positioning &amp; messaging</span>
+          <span class="chip-static">Competitor &amp; category analysis</span>
+          <span class="chip-static">Campaign performance reporting</span>
+          <span class="chip-static">Forecasting &amp; budgeting</span>
+          <span class="chip-static">Variance analysis</span>
+          <span class="chip-static">KPI development</span>
+          <span class="chip-static">Segmentation &amp; churn modelling</span>
+          <span class="chip-static">Reporting automation</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="projects" class="dark">
+  <div class="wrap">
+    <div class="sec-top">
+      <span class="eyebrow">Portfolio</span>
+      <div class="sec-title"><h2>My Work</h2><span class="sec-line"></span></div>
+      <p class="sec-lede">Two pieces of work, rebuilt as interactive pages so you can read the method rather than a screenshot. Figures on each are illustrative; the write-ups are not.</p>
+    </div>
+    <div class="projects reveal">
+      <a class="proj" href="projects/overtime-analytics-dashboard.html">
+        <span class="tag">Bombardier · Workforce analytics</span>
+        <h3>Overtime Analytics Dashboard</h3>
+        <p>
+          An interactive dashboard monitoring workforce overtime across departments, employee groups
+          and time periods, with the cleaning and validation layer underneath it and the recurring
+          reporting automated.
+        </p>
+        <div class="metrics">
+          <div><div class="m-v">6</div><div class="m-l">Departments in one view</div></div>
+          <div><div class="m-v">Weekly</div><div class="m-l">Refresh, previously manual</div></div>
+        </div>
+        <div class="stack"><span>Excel · SQL · Dashboarding</span><span class="open">Open <span class="arw">→</span></span></div>
+      </a>
+      <a class="proj" href="projects/financial-health-dashboard.html">
+        <span class="tag">Power BI · Financial analysis</span>
+        <h3>Comparative Financial Health Dashboard</h3>
+        <p>Profitability, liquidity and leverage across five TSX-listed consumer goods companies, sourced from annual reports and filings. Variance analysis against sector benchmarks flags the outliers.</p>
+        <div class="metrics">
+          <div><div class="m-v">5</div><div class="m-l">Companies benchmarked</div></div>
+          <div><div class="m-v">12%</div><div class="m-l">Margin gap, top to bottom</div></div>
+        </div>
+        <div class="stack"><span>Power BI · Excel · Annual reports</span><span class="open">Open <span class="arw">→</span></span></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="sec-top">
+      <span class="eyebrow">Say hello</span>
+      <div class="sec-title"><h2>Get In Touch</h2><span class="sec-line"></span></div>
+    </div>
+    <div class="reveal">
+      <p class="contact-statement">
+        Bring me a question. <span class="pop">I'll bring the data.</span>
+      </p>
+      <div class="contact-links">
+        <a class="btn ink" href="mailto:d5batra@uwaterloo.ca">d5batra@uwaterloo.ca</a>
+        <a class="btn outline" href="https://www.linkedin.com/in/diya-batra" target="_blank" rel="noopener">linkedin.com/in/diya-batra</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Diya Batra</span>
+    <span>d5batra@uwaterloo.ca</span>
+  </div>
+</footer>
+
+<script>
+/* reveal on scroll: content is visible unless this script arms the animation */
+(function(){
+  var items = document.querySelectorAll('.reveal');
+  if (!items.length) return;
+  if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  document.documentElement.classList.add('js-anim');
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  items.forEach(function(el){ io.observe(el); });
+})();
+
+/* nav flips to light past the hero */
+(function(){
+  var nav = document.getElementById('nav'), sentinel = document.getElementById('heroEnd');
+  if (!nav || !sentinel) return;
+  function sync(){ nav.classList.toggle('light', sentinel.getBoundingClientRect().top <= 72); }
+  sync();
+  window.addEventListener('scroll', sync, { passive:true });
+  window.addEventListener('resize', sync);
+})();
+
+/* stat counters: final values live in the HTML as the fallback */
+(function(){
+  var band = document.getElementById('statBand');
+  if (!band) return;
+  var tiles = Array.prototype.slice.call(band.querySelectorAll('[data-count]'));
+  if (!tiles.length) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
+      !('IntersectionObserver' in window) || !window.requestAnimationFrame) return;
+
+  function label(el, v){
+    var grouped = el.getAttribute('data-group') === 'true';
+    var shown = grouped ? Math.round(v).toLocaleString('en-US') : String(Math.round(v));
+    return (el.getAttribute('data-prefix') || '') + shown + (el.getAttribute('data-suffix') || '');
+  }
+  tiles.forEach(function(el){ el.style.minWidth = el.getBoundingClientRect().width + 'px'; el.textContent = label(el, 0); });
+
+  function run(el, delay){
+    var target = parseFloat(el.getAttribute('data-count')), start = null;
+    function frame(now){
+      if (start === null) start = now;
+      var t = Math.min((now - start) / 1100, 1);
+      el.textContent = label(el, target * (1 - Math.pow(1 - t, 3)));
+      if (t < 1) requestAnimationFrame(frame);
+      else { el.textContent = label(el, target); el.style.minWidth = ''; }
+    }
+    setTimeout(function(){ requestAnimationFrame(frame); }, delay);
+  }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (!e.isIntersecting) return;
+      io.unobserve(e.target);
+      tiles.forEach(function(el, i){ run(el, i * 110); });
+    });
+  }, { threshold: 0.35 });
+  io.observe(band);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Overtime Analytics Dashboard · Diya Batra</title>
+<meta name="description" content="A daily overtime analytics dashboard built at Bombardier to show which employees were working overtime, where it concentrated, and how it moved over time.">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#252333">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23252333'/%3E%3Ctext x='32' y='43' font-family='Helvetica,Arial,sans-serif' font-size='26' font-weight='700' fill='%23A78BFA' text-anchor='middle'%3EDB%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --plum:#252333;--plum-line:#3F3A55;--white:#FFFFFF;
+    --on-dark:#F4F1FA;--on-dark-dim:#ABA3C0;--on-dark-faint:#8A82A0;
+    --violet:#A78BFA;--violet-ink:#6D28D9;
+    --grad:linear-gradient(135deg,#7C5CFF 0%,#B45CFF 55%,#E05CFF 100%);
+    --ink:#1A1826;--body:#56516B;--muted:#746E88;--rule:#ECEAF2;
+    --surface:rgba(37,35,51,0.04);--surface-line:rgba(37,35,51,0.09);--surface-hover:rgba(37,35,51,0.06);
+    --violet-wash:rgba(109,40,217,0.09);
+    --seq-1:#E4DCFB;--seq-2:#C4B2F5;--seq-3:#9B7FEA;--seq-4:#7C5CFF;--seq-5:#4B2FBF;
+    --neg:#C2482F;--track:rgba(37,35,51,0.08);
+    --display:'Sora',system-ui,sans-serif;--sans:'Inter',system-ui,sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace;
+    --r:18px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--white);color:var(--body);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+  a{color:inherit;text-decoration:none;}
+  ::selection{background:var(--violet);color:var(--plum);}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 30px;}
+
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:60;background:rgba(37,35,51,0.72);
+    backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    border-bottom:1px solid rgba(255,255,255,0.07);transition:background .3s ease,border-color .3s ease;
+  }
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:72px;gap:24px;}
+  .brand{font-family:var(--display);font-size:19px;font-weight:700;letter-spacing:-0.02em;color:var(--on-dark);white-space:nowrap;transition:color .3s ease;}
+  .brand span{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+  .nav-links{display:flex;gap:30px;font-size:14.5px;font-weight:500;}
+  .nav-links a{color:var(--on-dark-dim);transition:color .2s ease;}
+  .nav-links a:hover{color:var(--on-dark);}
+  .nav-cta{
+    font-size:14px;font-weight:600;color:#fff;white-space:nowrap;background:var(--grad);
+    border-radius:100px;padding:11px 22px;box-shadow:0 6px 20px rgba(124,92,255,0.34);
+    transition:transform .2s ease,box-shadow .2s ease;
+  }
+  .nav-cta:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(124,92,255,0.45);}
+  nav.light{background:rgba(255,255,255,0.9);border-bottom-color:var(--rule);}
+  nav.light .brand{color:var(--ink);}
+  nav.light .nav-links a{color:var(--muted);}
+  nav.light .nav-links a:hover{color:var(--ink);}
+  @media (max-width:880px){ .nav-links{display:none;} }
+
+  header{background:var(--plum);position:relative;overflow:hidden;padding:142px 0 0;}
+  header::before{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background:
+      radial-gradient(740px 420px at 82% 2%, rgba(176,92,255,0.20), transparent 66%),
+      radial-gradient(520px 320px at 2% 96%, rgba(255,122,92,0.09), transparent 70%);
+  }
+  header .wrap{position:relative;}
+  .crumb{
+    display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:11px;
+    letter-spacing:0.14em;text-transform:uppercase;color:var(--on-dark);
+    background:rgba(255,255,255,0.06);border:1px solid var(--plum-line);
+    border-radius:100px;padding:9px 18px;margin-bottom:28px;
+  }
+  .crumb a{color:var(--violet);}
+  .crumb a:hover{text-decoration:underline;text-underline-offset:3px;}
+  h1{font-family:var(--display);font-size:clamp(32px,4.8vw,54px);font-weight:800;line-height:1.04;letter-spacing:-0.045em;color:var(--white);max-width:22ch;margin-bottom:22px;}
+  .hero-lede{font-size:16.5px;line-height:1.8;color:var(--on-dark-dim);max-width:62ch;}
+  .hero-meta{display:grid;grid-template-columns:repeat(4,1fr);margin-top:50px;border-top:1px solid var(--plum-line);}
+  .hero-meta div{padding:24px 24px 32px;border-left:1px solid var(--plum-line);}
+  .hero-meta div:first-child{border-left:0;padding-left:0;}
+  .hero-meta .k{font-family:var(--mono);font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--on-dark-faint);margin-bottom:9px;}
+  .hero-meta .v{font-size:14.5px;color:var(--on-dark);line-height:1.5;font-weight:500;}
+  @media (max-width:880px){
+    header{padding-top:112px;}
+    .hero-meta{grid-template-columns:repeat(2,1fr);}
+    .hero-meta div{padding:20px 18px;border-left:0;}
+    .hero-meta div:first-child{padding-left:18px;}
+    .hero-meta div:nth-child(n+3){border-top:1px solid var(--plum-line);}
+  }
+
+  main{padding:68px 0 96px;}
+  .notice{
+    display:flex;gap:16px;align-items:flex-start;background:var(--surface);
+    border:1px solid var(--surface-line);border-left:3px solid var(--neg);border-radius:var(--r);
+    padding:20px 24px;margin-bottom:60px;font-size:14.5px;line-height:1.7;color:var(--ink);
+  }
+  .notice .badge{font-family:var(--mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--neg);white-space:nowrap;flex:none;padding-top:3px;font-weight:500;}
+
+  .block{margin-bottom:72px;}
+  .block:last-child{margin-bottom:0;}
+  .sec-top{margin-bottom:20px;}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--violet-ink);margin-bottom:10px;display:block;}
+  .sec-title{display:flex;align-items:center;gap:26px;}
+  h2{font-family:var(--display);font-size:clamp(26px,3.4vw,38px);font-weight:800;letter-spacing:-0.045em;line-height:1.04;color:var(--ink);white-space:nowrap;}
+  .sec-line{flex:1;height:3px;border-radius:3px;background:var(--grad);min-width:36px;}
+  .block-note{font-size:15.5px;line-height:1.75;color:var(--muted);max-width:66ch;margin:18px 0 26px;}
+  @media (max-width:620px){ h2{white-space:normal;} .sec-title{gap:14px;} }
+
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+  .kpi{background:var(--surface);border:1px solid var(--surface-line);border-radius:var(--r);padding:24px 22px;}
+  .kpi .k{font-family:var(--mono);font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;}
+  .kpi .v{
+    font-family:var(--display);font-size:34px;font-weight:800;line-height:1;letter-spacing:-0.045em;
+    background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+    font-variant-numeric:tabular-nums;
+  }
+  .kpi .s{font-size:12.5px;color:var(--muted);margin-top:12px;line-height:1.5;}
+  @media (max-width:820px){ .kpis{grid-template-columns:repeat(2,1fr);} }
+
+  /* view switcher */
+  .controls{display:flex;gap:9px;flex-wrap:wrap;align-items:center;margin-bottom:20px;}
+  .ctl-label{font-family:var(--mono);font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-right:6px;}
+  .chip{
+    font-family:var(--sans);font-size:13.5px;font-weight:500;background:transparent;
+    border:1px solid var(--surface-line);border-radius:100px;padding:9px 18px;color:var(--body);cursor:pointer;
+    transition:border-color .2s ease,color .2s ease,background .2s ease;
+  }
+  .chip:hover{border-color:rgba(109,40,217,0.4);color:var(--ink);}
+  .chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff;}
+  .chip:focus-visible{outline:2px solid var(--violet-ink);outline-offset:2px;}
+
+  .chart{background:var(--surface);border:1px solid var(--surface-line);border-radius:var(--r);padding:28px 28px 24px;}
+  .chart-title{font-family:var(--display);font-size:17px;font-weight:700;letter-spacing:-0.025em;color:var(--ink);margin-bottom:5px;}
+  .chart-sub{font-family:var(--mono);font-size:11px;color:var(--muted);margin-bottom:24px;letter-spacing:0.02em;}
+
+  .bars{display:flex;flex-direction:column;gap:5px;}
+  .bar-row{
+    display:grid;grid-template-columns:142px 1fr 112px;gap:14px;align-items:center;
+    padding:7px 8px;margin:0 -8px;border-radius:10px;cursor:pointer;transition:background .18s ease;
+  }
+  .bar-row:hover{background:var(--surface-hover);}
+  .bar-row:focus-visible{outline:2px solid var(--violet-ink);}
+  .bar-row .nm{font-size:14px;color:var(--ink);text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .bar-row[data-sel="true"] .nm{font-weight:700;}
+  .track{position:relative;height:22px;background:var(--track);border-radius:0 5px 5px 0;}
+  .fill{position:absolute;top:0;left:0;bottom:0;border-radius:0 5px 5px 0;transition:width .5s cubic-bezier(.22,.7,.3,1),background .2s ease;}
+  .bar-row .val{font-family:var(--mono);font-size:13px;color:var(--ink);text-align:right;font-variant-numeric:tabular-nums;}
+  .bar-row .val small{color:var(--muted);font-size:11px;}
+  .avg-line{position:absolute;top:-7px;bottom:-7px;border-left:1.5px dashed rgba(26,24,38,0.5);}
+
+  .readout{
+    margin-top:22px;padding:20px 22px;border-radius:14px;
+    background:#fff;border:1px solid var(--surface-line);
+    display:flex;gap:26px;flex-wrap:wrap;align-items:center;
+  }
+  .readout .who{font-family:var(--display);font-size:19px;font-weight:700;color:var(--ink);letter-spacing:-0.03em;}
+  .readout .bit{font-size:13.5px;color:var(--body);}
+  .readout .bit b{font-family:var(--mono);font-size:13px;color:var(--violet-ink);font-weight:500;}
+
+  .key{display:flex;gap:20px;flex-wrap:wrap;margin-top:22px;padding-top:18px;border-top:1px solid var(--surface-line);font-size:12.5px;color:var(--muted);}
+  .key-item{display:flex;align-items:center;gap:8px;}
+  .ramp{display:flex;gap:2px;}
+  .ramp span{width:14px;height:11px;border-radius:2px;}
+  .dash{width:15px;height:0;border-top:1.5px dashed rgba(26,24,38,0.5);flex:none;}
+  .swatch{width:11px;height:11px;border-radius:3px;flex:none;}
+
+  /* concentration */
+  .conc{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  @media (max-width:820px){ .conc{grid-template-columns:1fr;} }
+  .conc-card{background:var(--surface);border:1px solid var(--surface-line);border-radius:var(--r);padding:26px 26px 24px;}
+  .conc-card .big{
+    font-family:var(--display);font-size:44px;font-weight:800;letter-spacing:-0.05em;line-height:1;
+    background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  }
+  .conc-card .lab{font-size:14.5px;color:var(--ink);margin-top:12px;line-height:1.6;}
+  .conc-card .meter{height:10px;background:var(--track);border-radius:100px;overflow:hidden;margin-top:18px;}
+  .conc-card .meter div{height:100%;border-radius:100px;background:var(--grad);}
+  .conc-card .foot{font-size:12.5px;color:var(--muted);margin-top:12px;}
+
+  /* trend columns */
+  .cols{display:flex;align-items:flex-end;gap:6px;height:186px;position:relative;padding-top:8px;}
+  .col{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:7px;min-width:0;}
+  .col .bar{width:100%;border-radius:6px 6px 0 0;background:var(--seq-3);transition:background .2s ease;}
+  .col.peak .bar{background:var(--seq-5);}
+  .col:hover .bar{background:var(--seq-4);}
+  .col .lab{font-family:var(--mono);font-size:9.5px;color:var(--muted);}
+  .col .num{font-family:var(--mono);font-size:10px;color:var(--ink);font-variant-numeric:tabular-nums;}
+  .avg-band{position:absolute;left:0;right:0;border-top:1.5px dashed rgba(26,24,38,0.45);}
+  .avg-tag{position:absolute;right:0;transform:translateY(-100%);font-family:var(--mono);font-size:10px;color:var(--muted);background:var(--surface);padding:2px 7px;border-radius:5px;}
+
+  .pager{display:flex;gap:12px;flex-wrap:wrap;padding:8px 0 0;}
+  .btn{
+    font-size:14.5px;font-weight:600;padding:14px 26px;border-radius:100px;display:inline-flex;align-items:center;gap:9px;
+    background:var(--grad);color:#fff;box-shadow:0 8px 24px rgba(124,92,255,0.32);
+    transition:transform .22s ease,box-shadow .22s ease;
+  }
+  .btn:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(124,92,255,0.44);}
+  .btn.outline{background:transparent;color:var(--ink);border:1px solid var(--surface-line);box-shadow:none;}
+  .btn.outline:hover{border-color:var(--violet-ink);color:var(--violet-ink);box-shadow:none;transform:none;}
+  footer{border-top:1px solid var(--rule);padding:34px 0;margin-top:70px;}
+  footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-family:var(--mono);font-size:11px;color:var(--muted);}
+
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto;}
+    .fill{transition:none;}
+    .btn:hover,.nav-cta:hover{transform:none;}
+  }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Diya <span>Batra</span></a>
+    <div class="nav-links">
+      <a href="../index.html">Portfolio</a>
+      <a href="financial-health-dashboard.html">Financial dashboard</a>
+      <a href="../index.html#contact">Contact</a>
+    </div>
+    <a class="nav-cta" href="mailto:d5batra@uwaterloo.ca">Get in touch</a>
+  </div>
+</nav>
+
+<header>
+  <div class="wrap">
+    <p class="crumb"><a href="../index.html">← Portfolio</a> <span>/</span> <span>Project 01 · Workforce analytics</span></p>
+    <h1>Overtime Analytics Dashboard</h1>
+    <p class="hero-lede">
+      Built at Bombardier and refreshed daily, to answer one question the schedule could not:
+      which employees were actually working the overtime. Switch the view below to see how the
+      same hours look by department, by employee group and by shift.
+    </p>
+    <div class="hero-meta">
+      <div><div class="k">Context</div><div class="v">Bombardier · Operations analyst</div></div>
+      <div><div class="k">Question</div><div class="v">Who is working overtime, and where</div></div>
+      <div><div class="k">Refresh</div><div class="v">Daily</div></div>
+      <div><div class="k">Built with</div><div class="v">Excel, SQL</div></div>
+    </div>
+  </div>
+</header>
+
+<span id="heroEnd" aria-hidden="true"></span>
+
+<main>
+  <div class="wrap">
+
+    <div class="notice">
+      <span class="badge">Illustrative data</span>
+      <span>
+        This page demonstrates the structure and the method of a dashboard built in a workplace.
+        No Bombardier workforce data is reproduced here: every figure, department name and trend
+        below is invented for illustration. The real dashboard stays with the company.
+      </span>
+    </div>
+
+    <section class="block">
+      <div class="kpis">
+        <div class="kpi"><div class="k">Employees tracked</div><div class="v">1,105</div><div class="s">Across six departments</div></div>
+        <div class="kpi"><div class="k">On overtime</div><div class="v">38%</div><div class="s">Logged at least one overtime shift</div></div>
+        <div class="kpi"><div class="k">Refresh</div><div class="v">Daily</div><div class="s">Previously assembled by hand</div></div>
+        <div class="kpi"><div class="k">Site average rate</div><div class="v">11.1%</div><div class="s">Overtime share of scheduled hours</div></div>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="sec-top">
+        <span class="eyebrow">Interactive</span>
+        <div class="sec-title"><h2>Who Worked Overtime</h2><span class="sec-line"></span></div>
+      </div>
+      <p class="block-note">
+        Three cuts of the same hours. Switch the view, then click any row to read it out underneath.
+        Reported as a rate rather than raw hours, so a small team working heavy overtime is not
+        hidden behind a large one working a little.
+      </p>
+
+      <div class="controls" role="group" aria-label="Choose a view">
+        <span class="ctl-label">View</span>
+        <button class="chip" data-view="dept" aria-pressed="true">By department</button>
+        <button class="chip" data-view="group" aria-pressed="false">By employee group</button>
+        <button class="chip" data-view="shift" aria-pressed="false">By shift</button>
+      </div>
+
+      <div class="chart">
+        <div class="chart-title" id="chartTitle">Overtime rate by department</div>
+        <div class="chart-sub" id="chartSub">Overtime hours as a share of scheduled hours · dashed line = site average 11.1%</div>
+        <div class="bars" id="bars"></div>
+        <div class="readout" id="readout"></div>
+        <div class="key">
+          <span class="key-item">
+            <span class="ramp">
+              <span style="background:var(--seq-1)"></span><span style="background:var(--seq-2)"></span>
+              <span style="background:var(--seq-3)"></span><span style="background:var(--seq-4)"></span>
+              <span style="background:var(--seq-5)"></span>
+            </span>
+            Lower to higher rate
+          </span>
+          <span class="key-item"><span class="dash"></span>Site average</span>
+          <span class="key-item">Click a row for the detail</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="sec-top">
+        <span class="eyebrow">Concentration</span>
+        <div class="sec-title"><h2>The Finding</h2><span class="sec-line"></span></div>
+      </div>
+      <p class="block-note">
+        The number that changed the conversation. Overtime was not spread across the workforce; it
+        sat with a small group of people, repeatedly, which is a planning problem rather than a
+        scheduling one.
+      </p>
+      <div class="conc">
+        <div class="conc-card">
+          <div class="big">41%</div>
+          <div class="lab">of all overtime hours were worked by the top <strong>10%</strong> of employees by overtime.</div>
+          <div class="meter"><div style="width:41%"></div></div>
+          <div class="foot">111 people out of 1,105</div>
+        </div>
+        <div class="conc-card">
+          <div class="big">3.2x</div>
+          <div class="lab">the site average overtime rate among that group, sustained across the year rather than in bursts.</div>
+          <div class="meter"><div style="width:76%"></div></div>
+          <div class="foot">Same names recurring month to month</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="sec-top">
+        <span class="eyebrow">Trend</span>
+        <div class="sec-title"><h2>How It Moved</h2><span class="sec-line"></span></div>
+      </div>
+      <p class="block-note">
+        The site rate across twelve months. A single day tells you very little, which is why the
+        dashboard refreshed daily but was read monthly.
+      </p>
+      <div class="chart">
+        <div class="chart-title">Monthly overtime rate</div>
+        <div class="chart-sub">Twelve-month view · dashed line = 12-month average</div>
+        <div class="cols" id="trendCols"></div>
+        <div class="key">
+          <span class="key-item"><span class="swatch" style="background:var(--seq-3)"></span>Monthly rate</span>
+          <span class="key-item"><span class="swatch" style="background:var(--seq-5)"></span>Above average</span>
+          <span class="key-item"><span class="dash"></span>12-month average</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="pager">
+      <a class="btn" href="financial-health-dashboard.html">Next project: Financial health dashboard <span>→</span></a>
+      <a class="btn outline" href="../index.html">← Back to portfolio</a>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Diya Batra</span>
+    <span>d5batra@uwaterloo.ca</span>
+  </div>
+</footer>
+
+<script>
+/* nav flips to light past the hero */
+(function(){
+  var nav = document.getElementById('nav'), sentinel = document.getElementById('heroEnd');
+  if (!nav || !sentinel) return;
+  function sync(){ nav.classList.toggle('light', sentinel.getBoundingClientRect().top <= 72); }
+  sync();
+  window.addEventListener('scroll', sync, { passive:true });
+  window.addEventListener('resize', sync);
+})();
+
+(function(){
+  "use strict";
+
+  /* Every figure here is invented for illustration. */
+  var SITE_AVG = 11.1, SCALE = 20;
+
+  var VIEWS = {
+    dept: {
+      title:'Overtime rate by department',
+      rows:[
+        { name:'Paint',          rate:16.2, people:95,  onOt:48, hours:980  },
+        { name:'Final assembly', rate:12.4, people:420, onOt:41, hours:3180 },
+        { name:'Structures',     rate:11.8, people:260, onOt:39, hours:1940 },
+        { name:'Maintenance',    rate:11.1, people:80,  onOt:44, hours:610  },
+        { name:'Quality',        rate:8.1,  people:140, onOt:27, hours:760  },
+        { name:'Materials',      rate:6.4,  people:110, onOt:22, hours:520  }
+      ]
+    },
+    group: {
+      title:'Overtime rate by employee group',
+      rows:[
+        { name:'Production',     rate:13.1, people:720, onOt:44, hours:5760 },
+        { name:'Skilled trades', rate:11.4, people:215, onOt:46, hours:1520 },
+        { name:'Support',        rate:5.2,  people:170, onOt:17, hours:710  }
+      ]
+    },
+    shift: {
+      title:'Overtime rate by shift',
+      rows:[
+        { name:'Night',     rate:15.8, people:240, onOt:52, hours:2410 },
+        { name:'Afternoon', rate:12.2, people:365, onOt:40, hours:2780 },
+        { name:'Day',       rate:8.4,  people:500, onOt:29, hours:2800 }
+      ]
+    }
+  };
+
+  var state = { view:'dept', selected:null };
+
+  function shadeFor(rate){
+    if (rate >= 15) return 'var(--seq-5)';
+    if (rate >= 12) return 'var(--seq-4)';
+    if (rate >= 10) return 'var(--seq-3)';
+    if (rate >= 8)  return 'var(--seq-2)';
+    return 'var(--seq-1)';
+  }
+
+  function render(){
+    var v = VIEWS[state.view];
+    if (!state.selected || !v.rows.some(function(r){ return r.name === state.selected; })) {
+      state.selected = v.rows[0].name;
+    }
+
+    document.getElementById('chartTitle').textContent = v.title;
+
+    document.getElementById('bars').innerHTML = v.rows.map(function(r){
+      var width = Math.max(r.rate / SCALE * 100, 1.5);
+      return '<div class="bar-row" role="button" tabindex="0" data-name="' + r.name + '"' +
+               ' data-sel="' + (r.name === state.selected ? 'true' : 'false') + '"' +
+               ' title="' + r.name + ' · ' + r.rate.toFixed(1) + '% rate · ' + r.onOt + '% of ' + r.people + ' people on overtime">' +
+        '<div class="nm">' + r.name + '</div>' +
+        '<div class="track">' +
+          '<div class="fill" style="width:' + width + '%;background:' + shadeFor(r.rate) + '"></div>' +
+          '<div class="avg-line" style="left:' + (SITE_AVG / SCALE * 100) + '%"></div>' +
+        '</div>' +
+        '<div class="val">' + r.rate.toFixed(1) + '% <small>rate</small></div>' +
+      '</div>';
+    }).join('');
+
+    var r = v.rows.filter(function(x){ return x.name === state.selected; })[0];
+    var delta = r.rate - SITE_AVG;
+    document.getElementById('readout').innerHTML =
+      '<span class="who">' + r.name + '</span>' +
+      '<span class="bit"><b>' + r.onOt + '%</b> of its ' + r.people + ' people worked overtime</span>' +
+      '<span class="bit"><b>' + r.hours.toLocaleString('en-US') + '</b> overtime hours logged</span>' +
+      '<span class="bit"><b>' + (delta > 0 ? '+' : delta < 0 ? '−' : '') + Math.abs(delta).toFixed(1) + ' pts</b> vs site average</span>';
+
+    Array.prototype.forEach.call(document.querySelectorAll('.bar-row'), function(row){
+      function pick(){ state.selected = row.getAttribute('data-name'); render(); }
+      row.addEventListener('click', pick);
+      row.addEventListener('keydown', function(e){
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(); }
+      });
+    });
+
+    Array.prototype.forEach.call(document.querySelectorAll('.chip[data-view]'), function(btn){
+      btn.setAttribute('aria-pressed', btn.getAttribute('data-view') === state.view ? 'true' : 'false');
+    });
+  }
+
+  Array.prototype.forEach.call(document.querySelectorAll('.chip[data-view]'), function(btn){
+    btn.addEventListener('click', function(){
+      state.view = btn.getAttribute('data-view');
+      state.selected = null;
+      render();
+    });
+  });
+
+  /* monthly trend */
+  var MONTHS = [
+    { m:'Jan', v:8.9 },  { m:'Feb', v:9.4 },  { m:'Mar', v:10.1 }, { m:'Apr', v:11.2 },
+    { m:'May', v:12.6 }, { m:'Jun', v:13.4 }, { m:'Jul', v:12.1 }, { m:'Aug', v:11.5 },
+    { m:'Sep', v:10.8 }, { m:'Oct', v:11.9 }, { m:'Nov', v:13.1 }, { m:'Dec', v:12.4 }
+  ];
+  var avg = MONTHS.reduce(function(a,b){ return a + b.v; }, 0) / MONTHS.length;
+  var maxV = Math.max.apply(null, MONTHS.map(function(x){ return x.v; }));
+  var plotH = 146;
+  document.getElementById('trendCols').innerHTML =
+    MONTHS.map(function(x){
+      return '<div class="col' + (x.v > avg ? ' peak' : '') + '" title="' + x.m + ' · ' + x.v.toFixed(1) + '%">' +
+        '<span class="num">' + x.v.toFixed(1) + '</span>' +
+        '<span class="bar" style="height:' + Math.round(x.v / maxV * plotH) + 'px"></span>' +
+        '<span class="lab">' + x.m + '</span>' +
+      '</div>';
+    }).join('') +
+    '<div class="avg-band" style="bottom:' + (Math.round(avg / maxV * plotH) + 22) + 'px">' +
+      '<span class="avg-tag">avg ' + avg.toFixed(1) + '%</span>' +
+    '</div>';
+
+  render();
+})();
+</script>
+</body>
+</html>
